@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="TimeWidget.View.TimeWidgetReduce"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:winget="clr-namespace:TimeWidget.ViewModel"
+			 mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="800" FontFamily="Calibri">
+	<!-- Data context -->
+	<UserControl.DataContext>
+		<winget:TimeVM/>
+	</UserControl.DataContext>
+	
+	<!-- Main grid -->
+	<Grid >
+		
+		<!-- Time -->
+        <Label Content="{Binding TimeModel.CurrentTimeWithSecString}" 
+			   HorizontalAlignment="Left"
+			   Foreground="White"
+			   HorizontalContentAlignment="Right"
+			   FontSize="{Binding SizeDict[9]}"/>
+
+	</Grid>
+</UserControl>

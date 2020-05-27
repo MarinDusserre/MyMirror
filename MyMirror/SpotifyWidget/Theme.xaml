@@ -1,0 +1,17 @@
+﻿<ResourceDictionary  
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<BitmapImage x:Key="Next" UriSource="Images/Next.png" />
+	<BitmapImage x:Key="Pause" UriSource="Images/Pause.png" />
+	<BitmapImage x:Key="Plus" UriSource="Images/Plus.png" />
+	<BitmapImage x:Key="Play" UriSource="Images/Play.png" />
+	<BitmapImage x:Key="Previous" UriSource="Images/Previous.png" />
+	<BitmapImage x:Key="Sound" UriSource="Images/Sound.png" />
+	<BitmapImage x:Key="Spotify" UriSource="Images/Spotify.png" />
+	<BitmapImage x:Key="Unknown" UriSource="Images/Unknown.png" />
+    <BitmapImage x:Key="PlayLists" UriSource="Images/PlayLists.png" />
+    <BitmapImage x:Key="RightArrow" UriSource="Images/RightArrow.png" />
+    <BitmapImage x:Key="LeftArrow" UriSource="Images/LeftArrow.png" />
+    
+</ResourceDictionary>

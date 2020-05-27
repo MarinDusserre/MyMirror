@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="TimeWidget.View.TimeWidgetFull"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:winget="clr-namespace:TimeWidget.ViewModel"
+			 mc:Ignorable="d" 
+             d:DesignHeight="1080" d:DesignWidth="1920">
+	
+	<!-- Data context -->
+	<UserControl.DataContext>
+		<winget:TimeVM/>
+	</UserControl.DataContext>
+
+	<!-- Main grid-->
+	<Grid>
+		<!-- Back ground-->
+		<Rectangle Fill="Black"/>
+		
+		<!-- Time animated clock -->
+		<Grid>
+			<Grid.RenderTransform>
+                <RotateTransform CenterX="{Binding XCenter}" CenterY="{Binding YCenter}" Angle="{Binding TimeModel.SecAngle}"/>
+			</Grid.RenderTransform>
+			<Ellipse Width="{Binding SizeDict[93]}" 
+				 Height="{Binding SizeDict[93]}" 
+				 Fill="White"
+				 VerticalAlignment="Center"
+				 HorizontalAlignment="Center"/>
+			<Ellipse Width="{Binding SizeDict[88]}" 
+				 Height="{Binding SizeDict[88]}" 
+			     VerticalAlignment="Center"
+				 HorizontalAlignment="Center"
+				 Fill="Black"/>
+			<Ellipse Width="{Binding SizeDict[10]}" 
+				 Height="{Binding SizeDict[10]}" 
+				 Fill="White"
+				 VerticalAlignment="Top"
+				 HorizontalAlignment="Center"/>
+		</Grid>
+
+		<!-- Time string -->
+        <Label Content="{Binding TimeModel.CurrentTimeString}" 
+			   HorizontalAlignment="Center"
+			   VerticalAlignment="Center"
+			   Foreground="White"
+			   FontSize="{Binding SizeDict[35]}"/>
+	</Grid>
+</UserControl>

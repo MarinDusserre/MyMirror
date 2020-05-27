@@ -1,0 +1,192 @@
+﻿<UserControl x:Class="SpotifyWidget.View.SpotifyWidgetFull"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SpotifyWidget.View"
+			 xmlns:converters="clr-namespace:SpotifyWidget.View.Converters"
+			 xmlns:winget="clr-namespace:SpotifyWidget.ViewModel"
+             xmlns:commonConverters="clr-namespace:Common.Converters;assembly=Common"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <!-- Resources -->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/SpotifyWidget;component/Theme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converters:IntToTimeString x:Key="IntToTimeString"/>
+            <converters:FloatToSizeProgress x:Key="FloatToSizeProgress"/>
+            <converters:BoolToImagePlayButton x:Key="BoolToImagePlayButton"/>
+            <commonConverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!-- Data context -->
+    <UserControl.DataContext>
+        <winget:SpotifyVM x:Name="BaseDataContext"/>
+    </UserControl.DataContext>
+
+    <!-- Main grid-->
+    <Grid>
+        <!-- Background -->
+        <Rectangle Fill="Black"/>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Top button -->
+            <Border Grid.Row="0"
+                    BorderBrush="White"
+					BorderThickness="{Binding SizeDict[1]}"
+                    Margin="{Binding SizeDict[2]}" >
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                    <Image Source="{StaticResource PlayLists}"
+                           Margin="{Binding SizeDict[1]}"/>
+                    <Rectangle Width="{Binding SizeDict[10]}"/>
+                    <Label  Grid.Row="1"
+							Content="{Binding SpotifyModel.SwitchWindowButton}" 
+							Foreground="White"
+							FontWeight="Bold"
+                            Padding="0"
+							FontSize="{Binding SizeDict[8]}"/>
+                    <Rectangle Width="{Binding SizeDict[10]}"/>
+                    <Image Source="{StaticResource PlayLists}"
+                           Margin="{Binding SizeDict[1]}"/>
+                </StackPanel>
+            </Border>
+            
+            <!-- Current status -->
+            <StackPanel Grid.Row="2" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Label  Grid.Row="1"
+							Content="{Binding SpotifyModel.SongTitle}" 
+							Foreground="White"
+							FontWeight="Bold"
+							FontSize="{Binding SizeDict[6]}"/>
+                    <Label Grid.Row="1"
+							Content=" - " 
+							Foreground="White"
+							FontSize="{Binding SizeDict[6]}"/>
+                    <Label  Grid.Row="1"
+							Content="{Binding SpotifyModel.Artist}" 
+							Foreground="White"
+							FontSize="{Binding SizeDict[6]}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" 
+							HorizontalAlignment="Center">
+                    <Label  Grid.Row="1"
+							Content="{Binding SpotifyModel.SongProgress, Converter={StaticResource IntToTimeString}}" 
+							Foreground="White"
+							FontWeight="Bold"
+							HorizontalAlignment="Center"
+							FontSize="{Binding SizeDict[6]}"/>
+                    <Grid Width="{Binding SizeDict[100]}">
+                        <Rectangle Fill="White" 
+								   Margin="{Binding SizeDict[1]}"
+								   Width="{Binding SpotifyModel.SongProgressPercent, Converter={StaticResource FloatToSizeProgress}, 
+								   ConverterParameter=98}"
+								   Height="{Binding SizeDict[3]}" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Label  Grid.Row="1"
+							Content="{Binding SpotifyModel.SongDuration, Converter={StaticResource IntToTimeString}}" 
+							Foreground="White"
+							FontWeight="Bold"
+							HorizontalAlignment="Center"
+							FontSize="{Binding SizeDict[6]}"/>
+                </StackPanel>
+            </StackPanel>
+            
+            <!-- Central buttons -->
+            <StackPanel Grid.Row="1"
+                        Orientation="Horizontal"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+                        Visibility="{Binding SpotifyModel.ShowMusicManagementPanel, Converter={StaticResource BoolToVisibilityConverter}}"
+						Height="{Binding SizeDict[51]}">
+                <Border BorderBrush="White"
+						BorderThickness="{Binding SizeDict[2]}">
+                    <Image Source="{StaticResource Previous}"/>
+                </Border>
+                <Rectangle Width="{Binding SizeDict[10]}"/>
+                <Border BorderBrush="White"
+						BorderThickness="{Binding SizeDict[2]}">
+                    <Image Source="{Binding SpotifyModel.IsPlaying, Converter={StaticResource BoolToImagePlayButton}}"/>
+                </Border>
+                <Rectangle Width="{Binding SizeDict[10]}"/>
+                <Border BorderBrush="White"
+						BorderThickness="{Binding SizeDict[2]}">
+                    <Image Source="{StaticResource Next}"/>
+                </Border>
+
+            </StackPanel>
+            
+            <!-- PlayList selector-->
+            <Grid Grid.Row="1"
+                  Grid.RowSpan="2"
+                   Visibility="{Binding SpotifyModel.ShowPlaylistManagementPanel, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Rectangle Fill="Black" Grid.ColumnSpan="3"/>
+                <Image Source="{StaticResource LeftArrow}"
+					   Visibility="{Binding SpotifyModel.ShowPreviousArrow, Converter={StaticResource BoolToVisibilityConverter}}"
+					   HorizontalAlignment="Left"/>
+                <ScrollViewer x:Name="ScrollContainer"
+                      Grid.Column="1"
+                      VerticalScrollBarVisibility="Hidden"
+                      HorizontalScrollBarVisibility="Hidden">
+                    <StackPanel Orientation="Horizontal">
+                        <Rectangle Width="{Binding SizeDict[30]}"/>
+                        <ItemsControl ItemsSource="{Binding SpotifyModel.Playlists}"
+                          VerticalAlignment="Center">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Vertical">
+                                        <Border BorderBrush="White"
+                                            BorderThickness="{Binding ElementName=BaseDataContext, Path=SizeDict[2]}"
+								            Width="{Binding ElementName=BaseDataContext, Path=SizeDict[65]}"
+								            Height="{Binding ElementName=BaseDataContext, Path=SizeDict[65]}"
+                                            Margin="{Binding ElementName=BaseDataContext, Path=SizeDict[5]}">
+                                            <Image Source="{Binding Image}"
+											    Height="{Binding ElementName=BaseDataContext, Path=SizeDict[65]}"/>
+                                        </Border>
+                                        <Label  Grid.Row="1"
+											Content="{Binding Name}" 
+											Foreground="White"
+											FontWeight="Bold"	
+											FontSize="{Binding ElementName=BaseDataContext, Path=SizeDict[6]}"
+											HorizontalAlignment="Center"/>
+                                    </StackPanel>
+                                        <Rectangle Width="{Binding ElementName=BaseDataContext, Path=SizeDict[10]}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Rectangle Width="{Binding SizeDict[25]}"/>
+                    </StackPanel>
+                </ScrollViewer>
+                <Image Grid.Column="2"
+               Visibility="{Binding SpotifyModel.ShowNextArrow, Converter={StaticResource BoolToVisibilityConverter}}"
+               Source="{StaticResource RightArrow}"
+			   HorizontalAlignment="Right"/>
+            </Grid>
+        </Grid>
+    </Grid>
+
+</UserControl>

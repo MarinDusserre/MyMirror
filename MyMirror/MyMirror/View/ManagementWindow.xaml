@@ -1,0 +1,143 @@
+﻿<Window x:Class="MyMirror.View.ManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:resx="clr-namespace:MyMirror.Properties"
+        xmlns:local="clr-namespace:MyMirror.View"
+		xmlns:viewmodel="clr-namespace:MyMirror.ViewModel"
+        xmlns:converters="clr-namespace:MyMirror.View.Converters"
+		mc:Ignorable="d"
+		ShowInTaskbar="True" 
+		x:Name="ParamWindow"
+        Title="{x:Static resx:Resources.ParametersWindow}"
+		Icon="{StaticResource Settings}"
+		Height="{Binding SizeDict[80]}"
+		Width="{Binding SizeDict[80]}">
+	
+	<Window.DataContext>
+		<viewmodel:ManagementWindowVM/>
+	</Window.DataContext>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <converters:ParamTypeToComboBoxVisibilityConverter x:Key="ParamTypeToComboBoxVisibilityConverter"/>
+            <converters:ParamTypeToFieldVisibilityConverter x:Key="ParamTypeToFieldVisibilityConverter"/>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="2*"/>
+			<RowDefinition Height="5*"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<Button Command="{Binding LogButtonCommand}"
+				CommandParameter="{Binding ElementName=ParamWindow}"
+				VerticalAlignment="Top"	
+			    HorizontalAlignment="Right"
+				Background="Transparent"
+				BorderBrush="Transparent"
+				Height="{Binding SizeDict[8]}"
+				Margin="{Binding SizeDict[1]}"
+				FontSize="{Binding SizeDict[3]}">
+			<Image Source="{StaticResource LogFile}"/>
+		</Button>
+		<Image Source="{StaticResource Logo}"
+			   HorizontalAlignment="Left"
+			   Margin="{Binding SizeDict[1]}"/>
+
+		<TabControl Grid.Row="1" ItemsSource="{Binding TabItems}">
+			<TabControl.ItemTemplate>
+				<DataTemplate>
+					<Label Content="{Binding Title}"
+						   FontSize="{Binding SizeDict[3]}"/>
+				</DataTemplate>
+			</TabControl.ItemTemplate>
+			<TabControl.ContentTemplate>
+				<DataTemplate>
+					<ScrollViewer HorizontalScrollBarVisibility="Auto">
+						<ItemsControl ItemsSource="{Binding Items}" Margin="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+																	 AncestorType={x:Type Window}},
+																	 Path=DataContext.SizeDict[1]}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Grid Margin="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+																	 AncestorType={x:Type Window}},
+																	 Path=DataContext.SizeDict[1]}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="2*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="2*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0"
+                                               HorizontalAlignment="Left"
+                                               Content="{Binding Translation}" 
+											   Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+																	 AncestorType={x:Type Window}},
+																	 Path=DataContext.SizeDict[30]}" 
+											   FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+																	 AncestorType={x:Type Window}},
+																	 Path=DataContext.SizeDict[2]}"/>
+                                        <ComboBox Grid.Column="2"
+                                                  HorizontalAlignment="Left"
+                                                  ItemsSource="{Binding PossibleValues}" 
+												  SelectedIndex="{Binding ValueIndex, Mode=TwoWay}"
+                                                  Visibility="{Binding DisplayType, Converter={StaticResource ParamTypeToComboBoxVisibilityConverter}}"
+												  Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+																		AncestorType={x:Type Window}},
+																		Path=DataContext.SizeDict[20]}" 
+												  FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+																		AncestorType={x:Type Window}},
+																		Path=DataContext.SizeDict[2]}"/>
+                                        <TextBox Grid.Column="2"
+                                                 HorizontalAlignment="Left"
+                                                 Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                 Visibility="{Binding DisplayType, Converter={StaticResource ParamTypeToFieldVisibilityConverter}}"
+												 Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+																		AncestorType={x:Type Window}},
+																		Path=DataContext.SizeDict[50]}" 
+												 FontSize="{Binding RelativeSource={RelativeSource Mode=FindAncestor,
+																		AncestorType={x:Type Window}},
+																		Path=DataContext.SizeDict[2]}"/>
+                                    </Grid>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</ScrollViewer>
+				</DataTemplate>
+			</TabControl.ContentTemplate>
+
+		</TabControl>
+		
+		<StackPanel Grid.Row="2" 
+					Orientation="Horizontal"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Center">
+			<Button Command="{Binding ExitButtonCommand}"
+				Content="{x:Static resx:Resources.ExitApp}"
+				VerticalAlignment="Stretch"	
+			    HorizontalAlignment="Center"
+				FontSize="{Binding SizeDict[4]}"
+				Width="{Binding SizeDict[33]}"/>
+			<Rectangle Width="{Binding SizeDict[4]}"/>
+			<Button Command="{Binding SaveButtonCommand}"
+				CommandParameter="{Binding ElementName=ParamWindow}"
+				Content="{x:Static resx:Resources.Save}"
+				VerticalAlignment="Stretch"	
+			    HorizontalAlignment="Center"
+				FontSize="{Binding SizeDict[4]}"
+				Width="{Binding SizeDict[30]}"/>
+			<Rectangle Width="{Binding SizeDict[4]}"/>
+			<Button Command="{Binding ReturnButtonCommand}"
+				CommandParameter="{Binding ElementName=ParamWindow}"
+				Content="{x:Static resx:Resources.Return}"
+				VerticalAlignment="Stretch"	
+			    HorizontalAlignment="Center"
+				FontSize="{Binding SizeDict[4]}"
+				Width="{Binding SizeDict[30]}"/>
+		</StackPanel>
+
+	</Grid>
+</Window>

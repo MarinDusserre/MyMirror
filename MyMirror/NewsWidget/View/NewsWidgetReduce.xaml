@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="NewsWidget.View.NewsWidgetReduce"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NewsWidget.View"
+			 xmlns:widget="clr-namespace:NewsWidget.ViewModel"
+			 mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <!-- Resources -->
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/NewsWidget;component/Theme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <!-- Data context -->
+    <UserControl.DataContext>
+        <widget:NewsVM/>
+    </UserControl.DataContext>
+
+
+    <!-- Main grid -->
+    <StackPanel VerticalAlignment="Top">
+        <TextBlock  Grid.Row="1"
+				    Text="{Binding NewsModel.NewsList[0].Title}" 
+                    TextWrapping="Wrap"
+                    HorizontalAlignment="Left"
+				    Foreground="White"
+			        FontWeight="Bold"
+				    FontSize="{Binding SizeDict[4]}"/>
+    </StackPanel>
+</UserControl>

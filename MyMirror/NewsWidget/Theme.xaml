@@ -1,0 +1,8 @@
+﻿<ResourceDictionary  
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <BitmapImage x:Key="RightArrow" UriSource="Images/RightArrow.png" />
+    <BitmapImage x:Key="LeftArrow" UriSource="Images/LeftArrow.png" />
+
+</ResourceDictionary>

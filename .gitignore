@@ -1,0 +1,6 @@
+bin
+/MyMirror/MyMirror/obj
+/MyMirror/.vs
+obj
+*.htm
+*.zip
