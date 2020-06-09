@@ -120,6 +120,9 @@
   <data name="BotWidget" xml:space="preserve">
     <value>Widget du bas</value>
   </data>
+  <data name="DefaultLedsMode" xml:space="preserve">
+    <value>COM</value>
+  </data>
   <data name="DefaultSleepTimer" xml:space="preserve">
     <value>60</value>
   </data>
@@ -132,8 +135,11 @@
   <data name="InputFolder" xml:space="preserve">
     <value>Inputs</value>
   </data>
+  <data name="LedsMode" xml:space="preserve">
+    <value>Led mode (WIFI or COM)</value>
+  </data>
   <data name="LedsPort" xml:space="preserve">
-    <value>Port des LEDs</value>
+    <value>Port ou IP des LEDs</value>
   </data>
   <data name="LeftWidget" xml:space="preserve">
     <value>Widget de gauche</value>

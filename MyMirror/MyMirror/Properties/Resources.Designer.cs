@@ -19,7 +19,7 @@ namespace MyMirror.Properties {
     // à l'aide d'un outil, tel que ResGen ou Visual Studio.
     // Pour ajouter ou supprimer un membre, modifiez votre fichier .ResX, puis réexécutez ResGen
     // avec l'option /str ou régénérez votre projet VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -70,6 +70,15 @@ namespace MyMirror.Properties {
         }
         
         /// <summary>
+        ///   Recherche une chaîne localisée semblable à COM.
+        /// </summary>
+        public static string DefaultLedsMode {
+            get {
+                return ResourceManager.GetString("DefaultLedsMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Recherche une chaîne localisée semblable à 60.
         /// </summary>
         public static string DefaultSleepTimer {
@@ -106,7 +115,16 @@ namespace MyMirror.Properties {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à Port des LEDs.
+        ///   Recherche une chaîne localisée semblable à Led mode (WIFI or COM).
+        /// </summary>
+        public static string LedsMode {
+            get {
+                return ResourceManager.GetString("LedsMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Port ou IP des LEDs.
         /// </summary>
         public static string LedsPort {
             get {

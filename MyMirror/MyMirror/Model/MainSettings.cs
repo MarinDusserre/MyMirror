@@ -65,6 +65,11 @@ namespace MyMirror.Model
         public IntegerSettingItem SleepTimer { get; set; }
 
         /// <summary>
+        /// Gets or Sets leds mode
+        /// </summary>
+        public StringSettingItem LedsMode { get; set; }
+
+        /// <summary>
         /// Gets or Sets leds port
         /// </summary>
         public StringSettingItem LedsPort { get; set; }

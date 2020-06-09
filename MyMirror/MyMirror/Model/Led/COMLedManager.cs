@@ -8,7 +8,6 @@
 namespace MyMirror.Model.Led
 {
     using Common.Log;
-    using Common.Settings;
     using System;
     using System.IO.Ports;
     using System.Threading;
@@ -40,13 +39,13 @@ namespace MyMirror.Model.Led
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="settings">Settings manager</param>
-        public COMLedManager(SettingsManager<MainSettings> settings)
+        /// <param name="Port">COM port</param>
+        public COMLedManager(string port)
         {
             _comPort = new SerialPort()
             {
                 BaudRate = 9600,
-                PortName = settings.Settings.LedsPort.Value
+                PortName = port
             };
             _accessMutex = new Mutex();
         }
@@ -71,7 +70,7 @@ namespace MyMirror.Model.Led
         /// <inheritdoc />
         public void InitAnnimation()
         {
-            byte[] frame = { (byte)COMFrameIdsEnum.Initialisation, 0, 2000 / 256, 2000 % 256 };
+            byte[] frame = { (byte)COMFrameIdsEnum.Initialization, 0, 2000 / 256, 2000 % 256 };
             SendFrame(frame);
         }
 
@@ -90,7 +89,7 @@ namespace MyMirror.Model.Led
             {
                 case (WidgetPositionEnum.Center):
                     {
-                        sideId = (byte)COMFrameIdsEnum.Initialisation;
+                        sideId = (byte)COMFrameIdsEnum.Initialization;
                         break;
                     }
                 case (WidgetPositionEnum.Top):
@@ -166,7 +165,14 @@ namespace MyMirror.Model.Led
             {
                 if (_comPort.IsOpen)
                 {
-                    _comPort.Write(frame, 0, frame.Length);
+                    try
+                    {
+                        _comPort.Write(frame, 0, frame.Length);
+                    }
+                    catch (Exception)
+                    {
+                        InitConnexion();
+                    }
                 }
                 _accessMutex.ReleaseMutex();
             }

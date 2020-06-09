@@ -8,8 +8,7 @@
 namespace MyMirror.Model.Led
 {
     using WingetContract.Enum;
-
-    interface ILedManager
+    public interface ILedManager
     {
         /// <summary>
         /// Initialize connection with Leds

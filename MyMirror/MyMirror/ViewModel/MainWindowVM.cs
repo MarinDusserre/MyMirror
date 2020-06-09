@@ -246,6 +246,8 @@ namespace MyMirror.ViewModel
                 {
                     AddWidgetToPos(widget, WidgetPositionEnum.Bot);
                 }
+                else { 
+                }
             }
 
             _mainModel.AddVolume(0);
@@ -326,7 +328,7 @@ namespace MyMirror.ViewModel
                     {
                         // Get cursor position
                         WidgetPositionEnum cursorPosition = GetClickPos(e.XPos, e.YPos);
-                        _mainModel.LedManager.LightUpSideWhite(cursorPosition, 300, 500, 300);
+                        _mainModel.LedManager.LightUpSideWhite(cursorPosition, 100, 200, 100);
                         
                         // Get associated widget
                         if (Widgets.ContainsKey((int)cursorPosition))

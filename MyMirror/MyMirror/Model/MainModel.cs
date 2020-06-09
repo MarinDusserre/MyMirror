@@ -129,7 +129,7 @@ namespace MyMirror.Model
             MainSettings.Initialize(Resources.SettingsFileName);
 
             _mainMessageAnnimation = new FadeAnnimation(value => MainMessageOpacity = value);
-            LedManager = new COMLedManager(MainSettings);
+            LedManager = LedManagerFactory.GetLedManager(MainSettings.Settings.LedsMode.Value, MainSettings.Settings.LedsPort.Value);
         }
 
         #endregion

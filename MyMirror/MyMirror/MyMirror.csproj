@@ -109,6 +109,10 @@
     <Compile Include="Model\Led\COMFrameIdsEnum.cs" />
     <Compile Include="Model\Led\ILedManager.cs" />
     <Compile Include="Model\Led\COMLedManager.cs" />
+    <Compile Include="Model\Led\LedManagerFactory.cs" />
+    <Compile Include="Model\Led\LedModeEnum.cs" />
+    <Compile Include="Model\Led\WifiLedsManager.cs" />
+    <Compile Include="Model\Led\WifiRequestNameEnum.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\MainSettings.cs" />
     <Compile Include="ViewModel\ParametersTabItem.cs" />

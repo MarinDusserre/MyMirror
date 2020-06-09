@@ -13,9 +13,9 @@ namespace MyMirror.Model.Led
     public enum COMFrameIdsEnum
     {
         /// <summary>
-        /// Initialisation frame ID
+        /// Initialization frame ID
         /// </summary>
-        Initialisation = 1,
+        Initialization = 1,
 
         /// <summary>
         /// Show all frame ID
